@@ -5,8 +5,10 @@ const cors = require('cors');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 const connectDB = require('./config/connectDB');
+const userRoutes = require('./routes/usersRoutes');
 // env config
 dotenv.config();
+// router import
 
 // mongodb Connection
 connectDB();
@@ -19,11 +21,7 @@ app.use(express.json());
 app.use(morgan('dev'));
 
 // routes
-app.get('/', (req, res) => {
-    res.status(200).json({
-        msg: 'hello from server',
-    });
-});
+app.use('/api/v1/user', userRoutes);
 
 // port
 const PORT = process.env.PORT || 3000;
