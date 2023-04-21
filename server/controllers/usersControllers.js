@@ -2,8 +2,22 @@
 // get all users
 const usersModel = require('../model/usersModel');
 
-exports.getAllUsers = (req, res) => {
-  res.send('get all users');
+exports.getAllUsers = async (req, res) => {
+  try {
+    const users = await usersModel.find();
+    res.status(200).json({
+      message: 'SuccessFully Data Fetched',
+      success: true,
+      results: users.length,
+      data: users,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: 'internal server error',
+      success: false,
+      error,
+    });
+  }
 };
 
 // register users
