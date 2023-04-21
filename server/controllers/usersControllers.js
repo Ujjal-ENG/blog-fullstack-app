@@ -13,7 +13,7 @@ exports.registerUser = async (req, res) => {
 
     //   if the fields are empty
     if (!userName || !email || !password) {
-      return res.status(500).json({
+      res.status(500).json({
         message: 'please fill in all fields',
         success: false,
       });
@@ -22,7 +22,7 @@ exports.registerUser = async (req, res) => {
     // exsinting user
     const existingUser = await usersModel.findOne({ email });
     if (existingUser) {
-      return res.status(401).json({
+      res.status(401).json({
         message: 'Users all ready exists',
         success: false,
       });
@@ -31,7 +31,7 @@ exports.registerUser = async (req, res) => {
     // save new user
 
     const user = await usersModel.create(req.body);
-    return res.status(201).json({
+    res.status(201).json({
       message: 'User is Successfully created',
       success: true,
       data: user,
