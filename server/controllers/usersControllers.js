@@ -66,4 +66,47 @@ exports.registerUser = async (req, res) => {
 };
 
 // login users
-exports.loginUser = (req, res) => {};
+exports.loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // validation
+    if (!email || !password) {
+      res.status(401).json({
+        message: 'Please Provide email and password',
+        success: false,
+      });
+    }
+
+    // check if user register or not
+    const user = await usersModel.findOne({ email });
+    if (!user) {
+      res.status(200).json({
+        message: 'Email is not registered,Please Register First then try to Login!!',
+        success: false,
+      });
+    }
+
+    // check password
+    const isMatchPassword = await bcrypt.compare(password, user.password);
+    if (!isMatchPassword) {
+      res.status(401).json({
+        message: 'Password is Not Matched,Please Provided a valid password!!',
+        success: false,
+      });
+    }
+
+    // then login phase
+    res.status(200).json({
+      message: 'Login Successfully done',
+      success: true,
+      data: user,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: 'internal server error',
+      success: false,
+      error,
+    });
+  }
+};
