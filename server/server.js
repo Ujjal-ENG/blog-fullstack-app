@@ -1,8 +1,12 @@
+/* eslint-disable no-console */
 /* eslint-disable indent */
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const dotenv = require('dotenv');
 
+// env config
+dotenv.config();
 // rest object
 const app = express();
 
@@ -18,8 +22,9 @@ app.get('/', (req, res) => {
     });
 });
 
+// port
+const PORT = process.env.PORT || 3000;
 // listen
-
-app.listen(8080, () => {
+app.listen(PORT, () => {
     console.log('Server is runing at 8080 port');
 });
