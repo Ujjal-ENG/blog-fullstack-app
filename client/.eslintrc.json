@@ -1,0 +1,44 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true,
+        "jest": true
+    },
+    "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:react-hooks/recommended", "plugin:jsx-a11y/recommended", "airbnb"],
+
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 2022,
+        "sourceType": "module"
+    },
+    "rules": {
+        "no-var": "error",
+        "camelcase": "error",
+        "no-empty": "error",
+        "default-case": "error",
+        "eqeqeq": "error",
+        "react/react-in-jsx-scope": "off",
+        "react-hooks/rules-of-hooks": "error",
+        "no-console": "off",
+        "react/state-in-constructor": "off",
+        "indent": "off",
+        "linebreak-style": "off",
+        "react/prop-types": "off",
+        "jsx-a11y/click-events-have-key-events": "off",
+        "react/jsx-filename-extension": [
+            "warn",
+            {
+                "extensions": [".js", ".jsx"]
+            }
+        ]
+    },
+    "plugins": ["prettier", "react", "react-hooks"],
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    }
+}
