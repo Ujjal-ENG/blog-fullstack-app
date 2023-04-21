@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 // get all users
+const bcrypt = require('bcrypt');
 const usersModel = require('../model/usersModel');
 
 exports.getAllUsers = async (req, res) => {
@@ -42,9 +43,13 @@ exports.registerUser = async (req, res) => {
       });
     }
 
+    // hashed the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     // save new user
 
-    const user = await usersModel.create(req.body);
+    const user = await usersModel.create({ userName, email, password: hashedPassword });
+
     res.status(201).json({
       message: 'User is Successfully created',
       success: true,
