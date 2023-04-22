@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-alert */
 /* eslint-disable react/jsx-closing-bracket-location */
 /* eslint-disable react/jsx-indent-props */
@@ -31,6 +32,7 @@ function LoginPage() {
         try {
             const { data } = await axios.post('http://localhost:8080/api/v1/user/login', { userName: inputs.name, email: inputs.email, password: inputs.password });
             if (data.success) {
+                localStorage.setItem('userId', data.data._id);
                 disPatch(authActions.login());
                 alert('User Login Successfully');
                 navigate('/');
