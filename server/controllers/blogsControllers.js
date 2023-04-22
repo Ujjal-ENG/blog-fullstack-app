@@ -1,3 +1,6 @@
+/* eslint-disable consistent-return */
+/* eslint-disable new-cap */
+/* eslint-disable new-cap */
 /* eslint-disable prettier/prettier */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable comma-dangle */
@@ -12,7 +15,7 @@ exports.getAllBlogs = async (req, res) => {
     try {
         const blogs = await blogModel.find();
         if (!blogs) {
-            res.status(200).json({
+            return res.status(200).json({
                 message: 'No blogs found!!',
                 success: true,
                 results: blogs.length,
@@ -40,7 +43,7 @@ exports.createBlog = async (req, res) => {
  title, description, image, user 
 } = req.body;
         if (!title || !description || !image || !user) {
-            res.status(400).json({
+          return res.status(400).json({
                 message: 'Please fillup the all given fields',
                 success: false,
             });
@@ -50,7 +53,7 @@ exports.createBlog = async (req, res) => {
         const existingUser = await userModel.findById(user);
         // validation
         if (!existingUser) {
-            res.status(404).json({
+           return res.status(404).json({
                 success: false,
                 message: 'unable to find user'
             });
@@ -61,11 +64,11 @@ exports.createBlog = async (req, res) => {
         const session = await mongoose.startSession();
         session.startTransaction();
         const blogId = newBlogs._id;
-
   await existingUser.updateOne({ $push: { blogs: blogId } }, { session });
 
   await session.commitTransaction();
-        res.status(201).json({
+        
+       return res.status(201).json({
             message: 'blog is created',
             success: true,
             data: newBlogs,
@@ -116,15 +119,27 @@ exports.getBlogById = async (req, res) => {
 // delete blog by id
 exports.deleteBlog = async (req, res) => {
     try {
-        await blogModel.findByIdAndDelete(req.params.id);
-        res.status(200).json({
-            message: 'blog is deleted',
-            success: true,
+      const deletedBlog = await blogModel.findByIdAndDelete(req.params.id);
+      if (!deletedBlog) {
+        return res.status(404).json({
+          success: false,
+          message: 'Blog not found',
         });
+      }
+      await userModel.findOneAndUpdate(
+        { _id: deletedBlog.user },
+        { $pull: { blogs: deletedBlog._id } }
+      );
+  
+      res.status(200).json({
+        message: 'Blog is deleted and removed from user',
+        success: true,
+      });
     } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error,
-        });
+      console.log(error);
+      res.status(500).json({
+        success: false,
+        message: error,
+      });
     }
-};
+  };
