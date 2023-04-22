@@ -47,9 +47,14 @@ function Navbar() {
                         </>
                     )}
                     {isLogin && (
-                        <Button sx={{ margin: 1, color: 'white' }} onClick={handleLogout}>
-                            Logout
-                        </Button>
+                        <>
+                            <Button LinkComponent={Link} to="/create-blog" sx={{ margin: 1, color: 'white' }}>
+                                Create Blog
+                            </Button>
+                            <Button sx={{ margin: 1, color: 'white' }} onClick={handleLogout}>
+                                Logout
+                            </Button>
+                        </>
                     )}
                 </Box>
             </Toolbar>
