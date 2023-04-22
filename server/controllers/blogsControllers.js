@@ -74,8 +74,20 @@ exports.updateBlog = async (req, res) => {
 };
 
 // get blog by id
-exports.getBlogById = (req, res) => {
-    res.send('get blog by id');
+exports.getBlogById = async (req, res) => {
+    try {
+        const findOne = await blogModel.findById(req.params.id);
+        res.status(200).json({
+            success: true,
+            message: 'Data is founded',
+            findOne,
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: error,
+            success: false,
+        });
+    }
 };
 
 // delete blog by id
