@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable indent */
 const mongoose = require('mongoose');
 
@@ -54,8 +55,22 @@ exports.createBlog = async (req, res) => {
     }
 };
 // update blog
-exports.updateBlog = (req, res) => {
-    res.send('Update Blog');
+exports.updateBlog = async (req, res) => {
+    try {
+        const updateBlog = await blogModel.findByIdAndUpdate(req.params.id, {
+            new: true,
+        });
+        res.status(200).json({
+            success: true,
+            message: 'Blog is Updated',
+            updateBlog,
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: error,
+            success: false,
+        });
+    }
 };
 
 // get blog by id
