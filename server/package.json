@@ -7,8 +7,8 @@
     "scripts": {
         "start": "node server",
         "server": "nodemon run server",
-        "client": "npm run dev --prefix ./client",
-        "dev": "concurrently \"npm run server\" \"npm run dev\""
+        "client": "npm run dev --prefix ../client",
+        "dev": "concurrently \"npm run server\" \"npm run client\""
     },
     "keywords": [],
     "author": "",
