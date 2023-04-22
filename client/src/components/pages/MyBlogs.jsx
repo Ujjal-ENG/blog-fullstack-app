@@ -28,11 +28,11 @@ function MyBlogs() {
     useEffect(() => {
         getUserBlog();
     }, []);
-
+    console.log(blogs);
     return (
         <div>
             {blogs && blogs.length > 0 ? (
-                blogs.map((el) => <BlogCard key={el._id} data={el} />)
+                blogs.map((el) => <BlogCard key={el._id} data={el} isUser={localStorage.getItem('userId') === el.user} />)
             ) : (
                 <Alert
                     severity="warning"

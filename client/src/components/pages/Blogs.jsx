@@ -19,7 +19,7 @@ function Home() {
     useEffect(() => {
         getAllBlogs();
     }, []);
-    return <div>{blogs && blogs.map((el) => <BlogCard key={el._id} data={el} />)}</div>;
+    return <div>{blogs && blogs.map((el) => <BlogCard key={el._id} data={el} isUser={localStorage.getItem('userId') === el.user._id} />)}</div>;
 }
 
 export default Home;

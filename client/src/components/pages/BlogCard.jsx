@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable object-curly-newline */
 /* eslint-disable comma-dangle */
@@ -7,6 +8,9 @@
 /* eslint-disable react/jsx-wrap-multilines */
 /* eslint-disable react/jsx-indent-props */
 
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import { Box } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -18,14 +22,16 @@ import { red } from '@mui/material/colors';
 import moment from 'moment';
 import * as React from 'react';
 
-export default function BlogCard({ data }) {
+export default function BlogCard({ isUser, data }) {
     const {
         title,
         image,
         description,
         createdAt,
-        user: { userName }
+        user: { userName },
+        id
     } = data;
+    console.log(isUser);
     return (
         <Card
             sx={{
@@ -35,6 +41,16 @@ export default function BlogCard({ data }) {
                 padding: 2,
                 boxShadow: '5px 5px 10px #ccc'
             }}>
+            {isUser && (
+                <Box display="flex">
+                    <IconButton sx={{ marginLeft: 'auto' }}>
+                        <EditIcon />
+                    </IconButton>
+                    <IconButton>
+                        <DeleteIcon />
+                    </IconButton>
+                </Box>
+            )}
             <CardHeader
                 avatar={
                     <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
