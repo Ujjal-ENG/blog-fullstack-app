@@ -16,7 +16,6 @@ function Home() {
             console.log(error);
         }
     };
-    console.log(blogs);
     useEffect(() => {
         getAllBlogs();
     }, []);
