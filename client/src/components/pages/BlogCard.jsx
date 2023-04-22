@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable object-curly-newline */
 /* eslint-disable comma-dangle */
 /* eslint-disable react/jsx-closing-bracket-location */
@@ -46,9 +47,12 @@ export default function BlogCard({ data }) {
             />
             <CardMedia component="img" image={image} alt="Paella dish" sx={{ height: 300, width: '100% ' }} />
             <CardContent>
-                <Typography variant="h5">{title}</Typography>
+                <Typography variant="h5">
+                    Title:
+                    {` ${title}`}
+                </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    {description}
+                    <strong>Description:</strong> {`${description}`}
                 </Typography>
             </CardContent>
         </Card>
