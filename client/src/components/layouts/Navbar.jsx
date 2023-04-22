@@ -1,15 +1,27 @@
+/* eslint-disable no-alert */
 /* eslint-disable object-curly-newline */
 /* eslint-disable react/jsx-indent */
 import { AppBar, Box, Button, Tab, Tabs, Toolbar, Typography } from '@mui/material';
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { authActions } from '../../redux/store';
 
 function Navbar() {
     // maintain the global state
     const isLogin = useSelector((state) => state.isLogin);
-
+    const disPatch = useDispatch();
     const [value, setValue] = useState(0);
+    const navigate = useNavigate();
+    const handleLogout = () => {
+        try {
+            disPatch(authActions.logout());
+            alert('Logout SuccessFully!!');
+            navigate('/login');
+        } catch (error) {
+            console.log(error);
+        }
+    };
     return (
         <AppBar position="sticky">
             <Toolbar>
@@ -33,7 +45,11 @@ function Navbar() {
                             </Button>
                         </>
                     )}
-                    {isLogin && <Button sx={{ margin: 1, color: 'white' }}>Logout</Button>}
+                    {isLogin && (
+                        <Button sx={{ margin: 1, color: 'white' }} onClick={handleLogout}>
+                            Logout
+                        </Button>
+                    )}
                 </Box>
             </Toolbar>
         </AppBar>

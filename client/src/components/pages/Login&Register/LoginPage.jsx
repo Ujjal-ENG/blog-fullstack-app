@@ -12,7 +12,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { authActions } from '../../../redux/store';
 
 function LoginPage() {
-    const disPatch = useDispatch(authActions);
+    const disPatch = useDispatch();
     const [inputs, setInputs] = useState({
         name: '',
         email: '',
