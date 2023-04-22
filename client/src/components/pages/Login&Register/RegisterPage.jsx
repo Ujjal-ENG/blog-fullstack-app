@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-closing-bracket-location */
 /* eslint-disable react/jsx-indent-props */
 /* eslint-disable comma-dangle */
 /* eslint-disable object-curly-newline */
@@ -38,7 +39,7 @@ function RegisterPage() {
                 boxShadow="10px 10px 20px #ccc"
                 borderRadius={5}
                 padding={3}>
-                <Typography variant="h4" fontWeight="bold" padding={2}>
+                <Typography variat="h4" fontWeight="bold" padding={2}>
                     Register
                 </Typography>
                 <TextField name="name" margin="normal" type="text" label="Name" variant="outlined" value={inputs.name} onChange={handleChange} required />
