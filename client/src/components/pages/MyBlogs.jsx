@@ -28,7 +28,7 @@ function MyBlogs() {
     useEffect(() => {
         getUserBlog();
     }, []);
-    console.log(blogs);
+
     return (
         <div>
             {blogs && blogs.length > 0 ? (

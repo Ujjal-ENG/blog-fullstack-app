@@ -83,22 +83,32 @@ exports.createBlog = async (req, res) => {
 // update blog
 exports.updateBlog = async (req, res) => {
     try {
-        const updateBlog = await blogModel.findByIdAndUpdate(req.params.id, {
-            new: true,
-        });
+        const updatedBlog = await blogModel.findByIdAndUpdate(req.params.id, {
+            title: req.body.title,
+            description: req.body.description,
+            image: req.body.image
+        }, { new: true });
+        
+        if (!updatedBlog) {
+            return res.status(404).json({
+                success: false,
+                message: 'Blog not found'
+            });
+        }
+
         res.status(200).json({
             success: true,
-            message: 'Blog is Updated',
-            updateBlog,
+            message: 'Blog is updated',
+            updatedBlog,
         });
     } catch (error) {
+        console.log(error);
         res.status(500).json({
             message: error,
             success: false,
         });
     }
 };
-
 // get blog by id
 exports.getBlogById = async (req, res) => {
     try {

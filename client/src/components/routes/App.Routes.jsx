@@ -4,6 +4,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import App from '../../App';
+import BlogDetails from '../pages/BlogDetails';
 import Blog from '../pages/Blogs';
 import CreateBlog from '../pages/CreateBlog';
 import LoginPage from '../pages/Login&Register/LoginPage';
@@ -35,6 +36,15 @@ export const router = createBrowserRouter([
             {
                 path: '/register',
                 element: <RegisterPage />
+            },
+            {
+                path: '/blog-details/:id',
+                element: (
+                    <PrivateRoute>
+                        <BlogDetails />
+                    </PrivateRoute>
+                ),
+                loader: async ({ params }) => fetch(`http://localhost:8080/api/v1/blog/get-blog/${params.id}`)
             },
             {
                 path: '/create-blog',

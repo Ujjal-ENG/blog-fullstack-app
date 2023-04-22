@@ -21,6 +21,7 @@ import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
 import moment from 'moment';
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function BlogCard({ isUser, data }) {
     const {
@@ -29,9 +30,13 @@ export default function BlogCard({ isUser, data }) {
         description,
         createdAt,
         user: { userName },
-        id
+        _id
     } = data;
-    console.log(isUser);
+
+    const navigate = useNavigate();
+    const handleClickEdit = () => {
+        navigate(`/blog-details/${_id}`);
+    };
     return (
         <Card
             sx={{
@@ -43,7 +48,7 @@ export default function BlogCard({ isUser, data }) {
             }}>
             {isUser && (
                 <Box display="flex">
-                    <IconButton sx={{ marginLeft: 'auto' }}>
+                    <IconButton onClick={handleClickEdit} sx={{ marginLeft: 'auto' }}>
                         <EditIcon />
                     </IconButton>
                     <IconButton>
