@@ -4,8 +4,9 @@
 /* eslint-disable object-curly-newline */
 /* eslint-disable react/jsx-indent */
 import { Box, Button, TextField, Typography } from '@mui/material';
+import axios from 'axios';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function RegisterPage() {
     const [inputs, setInputs] = useState({
@@ -20,10 +21,18 @@ function RegisterPage() {
             [e.target.name]: e.target.value
         });
     };
-
-    const handleSubmit = (e) => {
+    const navigate = useNavigate();
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(inputs);
+        try {
+            const { data } = await axios.post('http://localhost:8080/api/v1/user/register', { userName: inputs.name, email: inputs.email, password: inputs.password });
+            if (data.success) {
+                alert('User Register Successfully');
+                navigate('/login');
+            }
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
