@@ -28,8 +28,30 @@ exports.getAllBlogs = async (req, res) => {
     }
 };
 // create blog
-exports.createBlog = (req, res) => {
-    res.send('create blogs');
+exports.createBlog = async (req, res) => {
+    try {
+        // validation
+        const { title, description, image } = req.body;
+        if (!title || !description || !image) {
+            res.status(400).json({
+                message: 'Please fillup the all given fields',
+                success: false,
+            });
+        }
+
+        // newBlog
+        const newBlogs = await blogModel.create(req.body);
+        res.status(201).json({
+            message: 'blog is created',
+            success: true,
+            data: newBlogs,
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: error,
+            success: false,
+        });
+    }
 };
 // update blog
 exports.updateBlog = (req, res) => {
