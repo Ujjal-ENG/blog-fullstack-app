@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable object-curly-newline */
@@ -19,6 +20,7 @@ import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
+import axios from 'axios';
 import moment from 'moment';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -37,6 +39,19 @@ export default function BlogCard({ isUser, data }) {
     const handleClickEdit = () => {
         navigate(`/blog-details/${_id}`);
     };
+
+    const handleClickDelete = async () => {
+        try {
+            const { data } = await axios.delete(`http://localhost:8080/api/v1/blog/delete-blog/${_id}`);
+
+            if (data?.success) {
+                alert('Blog was deleted!!');
+                window.location.reload();
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
     return (
         <Card
             sx={{
@@ -51,7 +66,7 @@ export default function BlogCard({ isUser, data }) {
                     <IconButton onClick={handleClickEdit} sx={{ marginLeft: 'auto' }}>
                         <EditIcon />
                     </IconButton>
-                    <IconButton>
+                    <IconButton onClick={handleClickDelete}>
                         <DeleteIcon />
                     </IconButton>
                 </Box>
