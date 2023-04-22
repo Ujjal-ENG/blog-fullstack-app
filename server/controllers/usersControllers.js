@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable prettier/prettier */
 // get all users
@@ -29,7 +30,7 @@ exports.registerUser = async (req, res) => {
 
     //   if the fields are empty
     if (!userName || !email || !password) {
-      res.status(500).json({
+      return res.status(500).json({
         message: 'please fill in all fields',
         success: false,
       });
@@ -38,7 +39,7 @@ exports.registerUser = async (req, res) => {
     // exsinting user
     const existingUser = await usersModel.findOne({ email });
     if (existingUser) {
-      res.status(401).json({
+      return res.status(401).json({
         message: 'Users all ready exists',
         success: false,
       });
@@ -73,7 +74,7 @@ exports.loginUser = async (req, res) => {
 
     // validation
     if (!email || !password) {
-      res.status(401).json({
+      return res.status(401).json({
         message: 'Please Provide email and password',
         success: false,
       });
@@ -82,7 +83,7 @@ exports.loginUser = async (req, res) => {
     // check if user register or not
     const user = await usersModel.findOne({ email });
     if (!user) {
-      res.status(200).json({
+      return res.status(200).json({
         message: 'Email is not registered,Please Register First then try to Login!!',
         success: false,
       });
@@ -91,7 +92,7 @@ exports.loginUser = async (req, res) => {
     // check password
     const isMatchPassword = await bcrypt.compare(password, user.password);
     if (!isMatchPassword) {
-      res.status(401).json({
+      return res.status(401).json({
         message: 'Password is Not Matched,Please Provided a valid password!!',
         success: false,
       });
