@@ -18,6 +18,7 @@ function Navbar() {
             disPatch(authActions.logout());
             alert('Logout SuccessFully!!');
             navigate('/login');
+            localStorage.clear('userId');
         } catch (error) {
             console.log(error);
         }
