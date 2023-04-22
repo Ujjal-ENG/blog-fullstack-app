@@ -9,9 +9,10 @@ import { authActions } from '../../redux/store';
 
 function Navbar() {
     // maintain the global state
-    const isLogin = useSelector((state) => state.isLogin);
+    let isLogin = useSelector((state) => state.isLogin);
+    isLogin = isLogin || localStorage.getItem('userId');
     const disPatch = useDispatch();
-    const [value, setValue] = useState();
+    const [value, setValue] = useState(0);
     const navigate = useNavigate();
     const handleLogout = () => {
         try {
@@ -30,8 +31,8 @@ function Navbar() {
                 {isLogin && (
                     <Box display="flex" marginLeft="auto" marginRight="auto">
                         <Tabs textColor="inherit" value={value} onChange={(e, val) => setValue(val)}>
-                            <Tab label="Blogs" LinkComponent={Link} to="/blogs" />
-                            <Tab label="My Blogs" LinkComponent={Link} to="/my-blogs" />
+                            <Tab label="Blogs" value={0} LinkComponent={Link} to="/blogs" />
+                            <Tab label="My Blogs" value={1} LinkComponent={Link} to="/my-blogs" />
                         </Tabs>
                     </Box>
                 )}
