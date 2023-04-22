@@ -6,7 +6,9 @@
     "main": "server.js",
     "scripts": {
         "start": "node server",
-        "server": "nodemon run server"
+        "server": "nodemon run server",
+        "client": "npm run dev --prefix ./client",
+        "dev": "concurrently \"npm run server\" \"npm run dev\""
     },
     "keywords": [],
     "author": "",
