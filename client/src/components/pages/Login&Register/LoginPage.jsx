@@ -7,9 +7,12 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { authActions } from '../../../redux/store';
 
 function LoginPage() {
+    const disPatch = useDispatch(authActions);
     const [inputs, setInputs] = useState({
         name: '',
         email: '',
@@ -28,6 +31,7 @@ function LoginPage() {
         try {
             const { data } = await axios.post('http://localhost:8080/api/v1/user/login', { userName: inputs.name, email: inputs.email, password: inputs.password });
             if (data.success) {
+                disPatch(authActions.login());
                 alert('User Login Successfully');
                 navigate('/');
             }
