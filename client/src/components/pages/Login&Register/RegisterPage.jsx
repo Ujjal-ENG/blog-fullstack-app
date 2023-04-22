@@ -7,6 +7,7 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
 import axios from 'axios';
 import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 
 function RegisterPage() {
@@ -26,9 +27,9 @@ function RegisterPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const { data } = await axios.post('http://localhost:8080/api/v1/user/register', { userName: inputs.name, email: inputs.email, password: inputs.password });
+            const { data } = await axios.post('https://the-blog-app.onrender.com/api/v1/user/register', { userName: inputs.name, email: inputs.email, password: inputs.password });
             if (data.success) {
-                alert('User Register Successfully');
+                toast.success('User Register Successfully');
                 navigate('/login');
             }
         } catch (error) {

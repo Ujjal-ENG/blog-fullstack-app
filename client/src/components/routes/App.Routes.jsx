@@ -48,7 +48,7 @@ export const router = createBrowserRouter([
                         <BlogDetails />
                     </PrivateRoute>
                 ),
-                loader: async ({ params }) => fetch(`http://localhost:8080/api/v1/blog/get-blog/${params.id}`)
+                loader: async ({ params }) => fetch(`https://the-blog-app.onrender.com/api/v1/blog/get-blog/${params.id}`)
             },
             {
                 path: '/create-blog',

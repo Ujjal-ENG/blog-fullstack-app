@@ -8,7 +8,7 @@ function Home() {
 
     const getAllBlogs = async () => {
         try {
-            const { data } = await axios.get('http://localhost:8080/api/v1/blog/all-blogs');
+            const { data } = await axios.get('https://the-blog-app.onrender.com/api/v1/blog/all-blogs');
             if (data?.success) {
                 setBlogs(data?.data);
             }

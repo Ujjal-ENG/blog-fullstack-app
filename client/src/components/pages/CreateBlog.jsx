@@ -28,7 +28,7 @@ function CreateBlog() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const { data } = await axios.post('http://localhost:8080/api/v1/blog/create-blog', { title: inputs.title, description: inputs.description, image: inputs.image, user: id });
+            const { data } = await axios.post('https://the-blog-app.onrender.com/api/v1/blog/create-blog', { title: inputs.title, description: inputs.description, image: inputs.image, user: id });
 
             if (data?.success) {
                 toast.success('Blog is Created!!');

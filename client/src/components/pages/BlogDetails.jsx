@@ -30,7 +30,7 @@ function BlogDetails() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const { data } = await axios.patch(`http://localhost:8080/api/v1/blog/update-blog/${loader.findOne._id}`, {
+            const { data } = await axios.patch(`https://the-blog-app.onrender.com/api/v1/blog/update-blog/${loader.findOne._id}`, {
                 title: inputs.title,
                 description: inputs.description,
                 image: inputs.image,
