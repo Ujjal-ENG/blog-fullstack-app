@@ -16,6 +16,12 @@ const UserSchema = mongoose.Schema(
             type: String,
             required: [true, 'password is required'],
         },
+        blogs: [
+            {
+                type: mongoose.Types.ObjectId,
+                ref: 'Blog',
+            },
+        ],
     },
     { timesStamps: true }
 );

@@ -1,7 +1,12 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable no-trailing-spaces */
+/* eslint-disable comma-dangle */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable indent */
 
+const mongoose = require('mongoose');
 const blogModel = require('../model/blogsModel');
+const userModel = require('../model/usersModel');
 // get all blogs
 exports.getAllBlogs = async (req, res) => {
     try {
@@ -31,16 +36,35 @@ exports.getAllBlogs = async (req, res) => {
 exports.createBlog = async (req, res) => {
     try {
         // validation
-        const { title, description, image } = req.body;
-        if (!title || !description || !image) {
+        const {
+ title, description, image, user 
+} = req.body;
+        if (!title || !description || !image || !user) {
             res.status(400).json({
                 message: 'Please fillup the all given fields',
                 success: false,
             });
         }
 
+        // find the existing user
+        const existingUser = await userModel.findById(user);
+        // validation
+        if (!existingUser) {
+            res.status(404).json({
+                success: false,
+                message: 'unable to find user'
+            });
+        }
+        
         // newBlog
         const newBlogs = await blogModel.create(req.body);
+        const session = await mongoose.startSession();
+        session.startTransaction();
+        const blogId = newBlogs._id;
+
+  await existingUser.updateOne({ $push: { blogs: blogId } }, { session });
+
+  await session.commitTransaction();
         res.status(201).json({
             message: 'blog is created',
             success: true,
