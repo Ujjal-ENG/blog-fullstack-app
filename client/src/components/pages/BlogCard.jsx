@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 /* eslint-disable comma-dangle */
 /* eslint-disable react/jsx-closing-bracket-location */
 /* eslint-disable max-len */
@@ -17,7 +18,13 @@ import moment from 'moment';
 import * as React from 'react';
 
 export default function BlogCard({ data }) {
-    const { title, image, description, createdAt } = data;
+    const {
+        title,
+        image,
+        description,
+        createdAt,
+        user: { userName }
+    } = data;
     return (
         <Card
             sx={{
@@ -30,15 +37,16 @@ export default function BlogCard({ data }) {
             <CardHeader
                 avatar={
                     <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                        {image}
+                        {userName}
                     </Avatar>
                 }
                 action={<IconButton aria-label="settings" />}
-                title={title}
+                title={userName}
                 subheader={moment(createdAt).format('LLL')}
             />
-            <CardMedia component="img" height="194" image="/static/images/cards/paella.jpg" alt="Paella dish" />
+            <CardMedia component="img" image={image} alt="Paella dish" sx={{ height: 300, width: '100% ' }} />
             <CardContent>
+                <Typography variant="h5">{title}</Typography>
                 <Typography variant="body2" color="text.secondary">
                     {description}
                 </Typography>
