@@ -11,7 +11,7 @@ function Navbar() {
     // maintain the global state
     const isLogin = useSelector((state) => state.isLogin);
     const disPatch = useDispatch();
-    const [value, setValue] = useState(0);
+    const [value, setValue] = useState();
     const navigate = useNavigate();
     const handleLogout = () => {
         try {
