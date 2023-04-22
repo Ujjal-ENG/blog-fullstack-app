@@ -7,6 +7,7 @@ const {
     updateBlog,
     getBlogById,
     deleteBlog,
+    singleUserAllBlog,
 } = require('../controllers/blogsControllers');
 
 const router = express.Router();
@@ -26,5 +27,8 @@ router.get('/get-blog/:id', getBlogById);
 
 // delete blog
 router.delete('/delete-blog/:id', deleteBlog);
+
+// single user all blogs get using id
+router.get('/user-blog/:id', singleUserAllBlog);
 
 module.exports = router;

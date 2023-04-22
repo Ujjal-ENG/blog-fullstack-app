@@ -142,4 +142,29 @@ exports.deleteBlog = async (req, res) => {
         message: error,
       });
     }
-  };
+};
+
+// single user all blogs get
+exports.singleUserAllBlog = async (req, res) => {
+    try {
+        const userBlog = await userModel.findById(req.params.id).populate('blogs');
+
+        if (!userBlog) {
+            return res.status(404).json({
+                success: false,
+                message: 'You have not created Any blogs yet now'
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: 'User Blogs',
+            userBlog
+        });
+    } catch (error) {
+        return res.status(400).json({
+            message: `Single User blog not get${error}`,
+            success: false
+        });
+    }
+};
