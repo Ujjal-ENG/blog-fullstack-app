@@ -9,6 +9,7 @@
 import { Box, Button, InputLabel, TextField, Typography } from '@mui/material';
 import axios from 'axios';
 import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 
 function BlogDetails() {
@@ -36,7 +37,7 @@ function BlogDetails() {
                 user: loader.findOne._id
             });
             if (data?.success) {
-                alert('Blog is updated');
+                toast.success('Blog is updated');
                 navigate('/my-blogs');
             }
         } catch (error) {

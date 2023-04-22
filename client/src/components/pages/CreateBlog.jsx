@@ -7,6 +7,7 @@
 import { Box, Button, InputLabel, TextField, Typography } from '@mui/material';
 import axios from 'axios';
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 function CreateBlog() {
@@ -30,7 +31,7 @@ function CreateBlog() {
             const { data } = await axios.post('http://localhost:8080/api/v1/blog/create-blog', { title: inputs.title, description: inputs.description, image: inputs.image, user: id });
 
             if (data?.success) {
-                alert('Blog is Created!!');
+                toast.success('Blog is Created!!');
                 navigate('/my-blogs');
             }
         } catch (error) {

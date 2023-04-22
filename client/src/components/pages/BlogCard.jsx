@@ -23,6 +23,7 @@ import { red } from '@mui/material/colors';
 import axios from 'axios';
 import moment from 'moment';
 import * as React from 'react';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 export default function BlogCard({ isUser, data }) {
@@ -45,7 +46,7 @@ export default function BlogCard({ isUser, data }) {
             const { data } = await axios.delete(`http://localhost:8080/api/v1/blog/delete-blog/${_id}`);
 
             if (data?.success) {
-                alert('Blog was deleted!!');
+                toast.success('Blog was deleted!!');
                 window.location.reload();
             }
         } catch (error) {
@@ -64,10 +65,10 @@ export default function BlogCard({ isUser, data }) {
             {isUser && (
                 <Box display="flex">
                     <IconButton onClick={handleClickEdit} sx={{ marginLeft: 'auto' }}>
-                        <EditIcon />
+                        <EditIcon color="info" />
                     </IconButton>
                     <IconButton onClick={handleClickDelete}>
-                        <DeleteIcon />
+                        <DeleteIcon color="error" />
                     </IconButton>
                 </Box>
             )}

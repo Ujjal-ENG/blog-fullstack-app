@@ -3,6 +3,7 @@
 /* eslint-disable react/jsx-indent */
 import { AppBar, Box, Button, Tab, Tabs, Toolbar, Typography } from '@mui/material';
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { authActions } from '../../redux/store';
@@ -17,7 +18,7 @@ function Navbar() {
     const handleLogout = () => {
         try {
             disPatch(authActions.logout());
-            alert('Logout SuccessFully!!');
+            toast.success('Logout SuccessFully!!');
             navigate('/login');
             localStorage.clear('userId');
         } catch (error) {
