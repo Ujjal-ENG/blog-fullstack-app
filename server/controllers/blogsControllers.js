@@ -1,6 +1,5 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable indent */
-const mongoose = require('mongoose');
 
 const blogModel = require('../model/blogsModel');
 // get all blogs
