@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const dotenv = require('dotenv');
 const connectDB = require('./config/connectDB');
 const userRoutes = require('./routes/usersRoutes');
+const blogRoutes = require('./routes/blogsRoutes');
 // env config
 dotenv.config();
 // router import
@@ -22,6 +23,7 @@ app.use(morgan('dev'));
 
 // routes
 app.use('/api/v1/user', userRoutes);
+app.use('/api/v1/blog', blogRoutes);
 
 // port
 const PORT = process.env.PORT || 3000;
